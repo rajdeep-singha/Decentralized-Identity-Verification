@@ -32,4 +32,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base : "/Decentralized-Identity-Verification",
 })
