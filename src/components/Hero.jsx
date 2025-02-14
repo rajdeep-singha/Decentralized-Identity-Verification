@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -16,13 +17,13 @@ const Hero = () => {
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
-              <a
-                href="#"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+              <Link
+                to="/get-started"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10"
               >
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              </Link>
             </div>
             <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
               <a
@@ -36,7 +37,6 @@ const Hero = () => {
         </div>
       </div>
       
-
       <div className="absolute inset-y-0 right-0 w-1 bg-gray-50 hidden lg:block" />
       <div className="relative inset-0 bg-gradient-to-br from-indigo-50 via-white to-indigo-50 opacity-0" />
     </div>

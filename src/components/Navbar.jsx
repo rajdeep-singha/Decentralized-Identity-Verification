@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X, Clipboard,Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Web3 from 'web3';
+import { Shield, Menu, X, Copy, Check, LogOut } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,12 +9,13 @@ const Navbar = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [balance, setBalance] = useState(null);
   const [network, setNetwork] = useState("");
-
   const [isCopied, setIsCopied] = useState(false);
+
+  // Copy Wallet Address
   const copyToClipboard = () => {
     navigator.clipboard.writeText(account);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 3000); // Reset after 2 seconds
+    setTimeout(() => setIsCopied(false), 3000); // Reset after 3 seconds
   };
 
   // Connect Wallet
@@ -50,10 +52,19 @@ const Navbar = () => {
     setIsConnected(false);
   };
 
+  // Smooth Scroll Function
+  const handleScrollTo = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Shield className="h-8 w-8 text-indigo-600" />
             <span className="ml-2 text-xl font-bold text-gray-900">SecureID</span>
@@ -61,55 +72,44 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-indigo-600">Home</a>
-            <a href="#Hero" className="text-gray-700 hover:text-indigo-600">About</a>
-            <a href="#Features" className="text-gray-700 hover:text-indigo-600">Features</a>
-            <a href="#HowItWorks" className="text-gray-700 hover:text-indigo-600">How It Works</a>
-            <a href="#FAQ" className="text-gray-700 hover:text-indigo-600">Docs</a>
-            <a href="#Footer" className="text-gray-700 hover:text-indigo-600">Contact</a>
+            <button onClick={() => handleScrollTo('Hero')} className="text-gray-700 hover:text-indigo-600">Home</button>
+            <button onClick={() => handleScrollTo('Features')} className="text-gray-700 hover:text-indigo-600">Features</button>
+            <button onClick={() => handleScrollTo('HowItWorks')} className="text-gray-700 hover:text-indigo-600">How It Works</button>
+            <button onClick={() => handleScrollTo('FAQ')} className="text-gray-700 hover:text-indigo-600">Docs</button>
+            <button onClick={() => handleScrollTo('Footer')} className="text-gray-700 hover:text-indigo-600">Contact</button>
 
-            {/* Wallet Connection Button */}
+            {/* Wallet Section */}
             {isConnected ? (
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={disconnectWallet}
-                  className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-                >
-                  Disconnect
+              <div className="flex items-center space-x-3">
+                <span className="text-green-600 font-semibold">{balance} ETH</span>
+                <div className="flex items-center bg-gray-100 px-3 py-1 rounded-lg">
+                  <span className="text-gray-800">{account.slice(0, 6)}...{account.slice(-4)}</span>
+                  <button onClick={copyToClipboard} className="ml-2 text-gray-500 hover:text-gray-700">
+                    {isCopied ? <Check size={16} /> : <Copy size={16} />}
+                  </button>
+                </div>
+                <button onClick={disconnectWallet} className="text-red-500 hover:text-red-700">
+                  <LogOut size={18} />
                 </button>
-                <span className="bg-green-700 px-3 py-1 rounded-md text-white text-sm">
-                  {account.slice(0, 6)}...{account.slice(-4)}
-                </span>
-                <button
-                          onClick={copyToClipboard}
-                          className="text-indigo-700 hover:text-indigo-600 flex items-center space-x-2"
->
-                           {isCopied ? (
-                           <Check className="h-5 w-5 text-green-500" />
-                            ) : (
-                            <Clipboard className="h-5 w-5" />
-                         )}
-                           {isCopied && <span className="text-sm text-green-600">Address Copied!</span>}
-                </button>
-                <span className="text-sm text-gray-700">{balance} ETH</span>
-                <span className="text-sm text-gray-700">({network})</span>
               </div>
             ) : (
               <button
                 onClick={connectWallet}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
               >
                 Connect Wallet
               </button>
             )}
+
+            {/* "Get Started" Navigates to a Separate Page */}
+            {/* <NavLink to="/get-started" className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+              Get Started
+            </NavLink> */}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-indigo-600"
-            >
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 hover:text-indigo-600">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -118,30 +118,41 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Home</a>
-            <a href="#Hero" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">About</a>
-            <a href="#Features" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Features</a>
-            <a href="#HowItWorks" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">How It Works</a>
-            <a href="#FAQ" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Docs</a>
-            <a href="#Footer" className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Contact</a>
+        <div className="md:hidden bg-white shadow-md">
+          <div className="px-4 pt-2 pb-3 space-y-1">
+            <button onClick={() => handleScrollTo('Hero')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Home</button>
+            <button onClick={() => handleScrollTo('Features')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Features</button>
+            <button onClick={() => handleScrollTo('HowItWorks')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">How It Works</button>
+            <button onClick={() => handleScrollTo('FAQ')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Docs</button>
+            <button onClick={() => handleScrollTo('Footer')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Contact</button>
 
+            {/* Wallet Section for Mobile */}
             {isConnected ? (
-              <button
-                onClick={disconnectWallet}
-                className="w-full text-left px-3 py-2 text-gray-700 hover:text-indigo-600"
-              >
-                Disconnect {account.slice(0, 6)}...{account.slice(-4)}
-              </button>
+              <div className="flex flex-col items-center bg-gray-100 p-3 rounded-lg">
+                <span className="text-green-600 font-semibold">{balance} ETH</span>
+                <div className="flex items-center">
+                  <span className="text-gray-800">{account.slice(0, 6)}...{account.slice(-4)}</span>
+                  <button onClick={copyToClipboard} className="ml-2 text-gray-500 hover:text-gray-700">
+                    {isCopied ? <Check size={16} /> : <Copy size={16} />}
+                  </button>
+                </div>
+                <button onClick={disconnectWallet} className="mt-2 text-red-500 hover:text-red-700">
+                  Disconnect
+                </button>
+              </div>
             ) : (
               <button
                 onClick={connectWallet}
-                className="w-full text-left px-3 py-2 text-gray-700 hover:text-indigo-600"
+                className="block w-full text-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
               >
                 Connect Wallet
               </button>
             )}
+
+            {/* "Get Started" */}
+            <NavLink to="/get-started" className="block text-center px-3 py-2 bg-indigo-600 text-white rounded-md">
+              Get Started
+            </NavLink>
           </div>
         </div>
       )}
