@@ -11,14 +11,14 @@ const Navbar = () => {
   const [network, setNetwork] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
-  // Copy Wallet Address
+  
   const copyToClipboard = () => {
     navigator.clipboard.writeText(account);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3000); // Reset after 3 seconds
   };
 
-  // Connect Wallet
+ 
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
@@ -28,11 +28,11 @@ const Navbar = () => {
         setAccount(accounts[0]);
         setIsConnected(true);
 
-        // Fetch Balance
+       
         const balanceInWei = await web3.eth.getBalance(accounts[0]);
         setBalance(web3.utils.fromWei(balanceInWei, "ether"));
 
-        // Get Network
+        
         const netId = await web3.eth.net.getId();
         setNetwork(netId === 1 ? "Ethereum Mainnet" : "Test Network");
       } catch (error) {
@@ -44,7 +44,7 @@ const Navbar = () => {
     }
   };
 
-  // Disconnect Wallet
+  
   const disconnectWallet = () => {
     setAccount(null);
     setBalance(null);
@@ -52,7 +52,7 @@ const Navbar = () => {
     setIsConnected(false);
   };
 
-  // Smooth Scroll Function
+ 
   const handleScrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
