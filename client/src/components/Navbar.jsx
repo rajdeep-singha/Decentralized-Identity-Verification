@@ -76,7 +76,7 @@ const Navbar = () => {
             <button onClick={() => handleScrollTo('Features')} className="text-gray-700 hover:text-indigo-600">Features</button>
             <button onClick={() => handleScrollTo('HowItWorks')} className="text-gray-700 hover:text-indigo-600">How It Works</button>
             <button onClick={() => handleScrollTo('FAQ')} className="text-gray-700 hover:text-indigo-600">Docs</button>
-            <button onClick={() => handleScrollTo('Footer')} className="text-gray-700 hover:text-indigo-600">Contact</button>
+            <button onClick={() => handleScrollTo('Footer')} className="text-gray-800 hover:text-indigo-600">Contact</button>
 
             {/* Wallet Section */}
             {isConnected ? (
@@ -124,7 +124,7 @@ const Navbar = () => {
             <button onClick={() => handleScrollTo('Features')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Features</button>
             <button onClick={() => handleScrollTo('HowItWorks')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">How It Works</button>
             <button onClick={() => handleScrollTo('FAQ')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Docs</button>
-            <button onClick={() => handleScrollTo('Footer')} className="block px-3 py-2 text-gray-700 hover:text-indigo-600">Contact</button>
+            <button onClick={() => handleScrollTo('Footer')} className="block px-3 py-2 text-gray-800 hover:text-indigo-600">Contact</button>
 
             {/* Wallet Section for Mobile */}
             {isConnected ? (
@@ -150,7 +150,7 @@ const Navbar = () => {
             )}
 
             {/* "Get Started" */}
-            <NavLink to="/get-started" className="block text-center px-3 py-2 bg-indigo-600 text-white rounded-md">
+            <NavLink to="/get-started" className="block text-center px-3 py-2 bg-blue-600 text-white rounded-md">
               Get Started
             </NavLink>
           </div>
