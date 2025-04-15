@@ -64,6 +64,6 @@ contract DecentralizedIdentity {
         bool isVerified
     ) {
         Identity memory id = identities[user];
-        return (id.fullName, id.ipfsHash, id.identityHash, id.organization,id.isVerified);
+        return (id.fullName, id.ipfsHash,id.identityHash,id.organization,id.isVerified);
     }
 }
