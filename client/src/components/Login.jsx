@@ -40,26 +40,27 @@ function MetamaskLogin() {
   // Send wallet address to backend for authentication
   const authenticateUser = async (walletAddress) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ walletAddress }),
-      });
+        const response = await fetch("http://localhost:5000/api/auth/wallet-login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ walletAddress }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.ok) {
-        setMessage(`Welcome back, user: ${walletAddress}`);
-      } else {
-        setMessage(data.message || "Authentication failed.");
-      }
+        if (response.ok) {
+            setMessage(`Welcome, user: ${walletAddress}`);
+            localStorage.setItem("authToken", data.token);
+        } else {
+            setMessage(data.error || "Authentication failed.");
+        }
     } catch (error) {
-      console.error("Authentication error:", error);
-      setMessage("Failed to authenticate. Try again.");
+        console.error("Authentication error:", error);
+        setMessage("Failed to authenticate. Try again.");
     }
-  };
+};
 
   useEffect(() => {
     const checkWalletConnection = async () => {
