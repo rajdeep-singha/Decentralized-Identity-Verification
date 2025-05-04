@@ -2,7 +2,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9d7bc3f7-bcd7-4692-905e-1b1e54acafaf" alt="DIVS UI Preview" width="700"/>
 </p>
-<p align="center"><strong>Secure. Private. Trustless.</strong></p>
+<p align="center"><strong>Secure. Private.</strong></p>
 
 <p align="center">A blockchain-powered identity verification platform that puts users in control of their data.</p>
 
